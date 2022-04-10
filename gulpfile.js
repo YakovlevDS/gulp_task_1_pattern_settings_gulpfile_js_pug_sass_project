@@ -1,33 +1,33 @@
 const gulp = require('gulp'),
-      browserSync = require('browser-sync').create(),
-      pug = require('gulp-pug'),
-      sass = require('gulp-sass')(require('sass'))
+    browserSync = require('browser-sync').create(),
+    pug = require('gulp-pug'),
+    sass = require('gulp-sass')(require('sass'))
 
-const app = 'app/',
-      dist = 'dist/';
+const src = 'src/',
+    dist = 'dist/';
 
 
 const config = {
-    app : {
-        html : app + 'pug/index.pug',
-        style : app + 'scss/**/*.scss',
-        js : app + 'js/**/*.*',
-        fonts : app + 'fonts/**/*.*',
-        img : app + 'img/**/*.*'
+    src: {
+        html: src + 'pug/index.pug',
+        style: src + 'scss/**/*.scss',
+        js: src + 'js/**/*.*',
+        fonts: src + 'fonts/**/*.*',
+        img: src + 'img/**/*.*'
     },
-    dist : {
-        html : dist,
+    dist: {
+        html: dist,
         style: dist + 'css/',
         js: dist + 'js/',
         fonts: dist + 'fonts/',
         img: dist + 'img/'
     },
-    watch : {
-        html: app + 'pug/**/*.pug',
-        style: app + 'scss/**/*.scss',
-        js: app + 'js/**/*.*',
-        fonts: app + 'fonts/**/*.*',
-        img: app + 'img/**/*.*'
+    watch: {
+        html: src + 'pug/**/*.pug',
+        style: src + 'scss/**/*.scss',
+        js: src + 'js/**/*.*',
+        fonts: src + 'fonts/**/*.*',
+        img: src + 'img/**/*.*'
     }
 }
 
@@ -43,7 +43,7 @@ const webServer = () => {
 }
 
 const pugTask = () => {
-    return gulp.src(config.app.html)
+    return gulp.src(config.src.html)
         .pipe(pug())
         .pipe(pug({
             pretty: false
@@ -53,26 +53,26 @@ const pugTask = () => {
 }
 
 const scssTask = () => {
-    return gulp.src(config.app.style)
+    return gulp.src(config.src.style)
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(config.dist.style))
         .pipe(browserSync.reload({ stream: true }))
 }
 
 const jsTask = () => {
-    return gulp.src(config.app.js)
+    return gulp.src(config.src.js)
         .pipe(gulp.dest(config.dist.js))
         .pipe(browserSync.reload({ stream: true }))
 }
 
 const imgTask = () => {
-    return gulp.src(config.app.img)
+    return gulp.src(config.src.img)
         .pipe(gulp.dest(config.dist.img))
         .pipe(browserSync.reload({ stream: true }))
 }
 
 const fontsTask = () => {
-    return gulp.src(config.app.fonts)
+    return gulp.src(config.src.fonts)
         .pipe(gulp.dest(config.dist.fonts))
         .pipe(browserSync.reload({ stream: true }))
 }
